@@ -35,6 +35,13 @@ public class RedisStringService {
         return redisTemplate.hasKey(key) ;
     }
 
+    public Long increment (String key , Long value ){
+
+        return redisTemplate.opsForValue().increment(key , value ) ;
+    }
+
+
+
 
 }
 

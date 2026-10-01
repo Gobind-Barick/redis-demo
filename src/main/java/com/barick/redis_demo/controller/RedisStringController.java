@@ -42,4 +42,13 @@ public class RedisStringController {
         return redisStringService.exists(key) ;
     }
 
+    @PostMapping("/increment")
+    public Long increment(@RequestParam String key , @RequestParam(required = false,defaultValue = "1") Long value){
+
+        return redisStringService.increment(key , value) ;
+
+    }
+
+
+
 }
