@@ -4,6 +4,9 @@ package com.barick.redis_demo.service;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Service
 public class RedisStringService {
 
@@ -20,9 +23,19 @@ public class RedisStringService {
         redisTemplate.opsForValue().set(key , value) ;
     }
 
+    public void mset(HashMap<String,String> msetmap){
+
+        redisTemplate.opsForValue().multiSet(msetmap);
+    }
+
     public String get(String key){
 
         return  redisTemplate.opsForValue().get(key) ;
+    }
+
+    public List<String> mget(List<String> keyset){
+
+        return  redisTemplate.opsForValue().multiGet(keyset) ;
     }
 
     public boolean delete(String key){

@@ -3,6 +3,10 @@ package com.barick.redis_demo.controller;
 import com.barick.redis_demo.service.RedisStringService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/redis")
 public class RedisStringController {
@@ -14,19 +18,35 @@ public class RedisStringController {
         this.redisStringService = redisStringService ;
     }
 
+
+
+//    @PostMapping("/set")
+//    public String set(@RequestParam String key  , @RequestParam String value){
+//
+//
+//        redisStringService.set(key , value);
+//
+//        return "key saved successfully" ;
+//    }
+
     @PostMapping("/set")
-    public String set(@RequestParam String key  , @RequestParam String value){
+    public String set(@RequestBody HashMap<String,String> map ){
 
-
-        redisStringService.set(key , value);
-
-        return "key saved successfully" ;
+        redisStringService.mset(map);
+        return "Key Saved Successfully" ;
     }
 
-    @GetMapping("/get")
-    public String get(@RequestParam String key){
 
-        return redisStringService.get(key) ;
+//    @GetMapping("/get")
+//    public String get(@RequestParam String key){
+//
+//        return redisStringService.get(key) ;
+//    }
+
+    @GetMapping("/get")
+    public List<String> get(@RequestBody List<String> keyset){
+
+        return redisStringService.mget(keyset) ;
     }
 
     @DeleteMapping("/delete")
