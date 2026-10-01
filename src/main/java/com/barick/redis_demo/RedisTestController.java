@@ -13,7 +13,6 @@ public class RedisTestController {
     RedisConnectionFactory redisConnectionFactory ;
 
 
-
     @GetMapping("/redis/test")
     public String redistest(){
 
