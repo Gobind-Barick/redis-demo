@@ -22,12 +22,12 @@
 
             StringRedisSerializer stringRedisSerializer = new StringRedisSerializer() ;
 
-            GenericJacksonJsonRedisSerializer genericJacksonJsonRedisSerializer = new GenericJacksonJsonRedisSerializer(objectMapper) ;
+          //  GenericJacksonJsonRedisSerializer genericJacksonJsonRedisSerializer = new GenericJacksonJsonRedisSerializer(objectMapper) ;
 
             template.setConnectionFactory(connectionFactory) ;
 
                 template.setKeySerializer(stringRedisSerializer);
-                template.setValueSerializer(genericJacksonJsonRedisSerializer);
+                template.setValueSerializer(RedisSerializer.json());
 
                 template.afterPropertiesSet();
 

@@ -23,11 +23,11 @@ public class BookRedisService {
 
     }
 
-    public Object getBook (Long  id) {
+    public Book getBook (Long  id) {
 
         String key  = "book:" + id ;
 
-        return redisTemplate.opsForValue().get(key);
+        return (Book) redisTemplate.opsForValue().get(key);
 
     }
 

@@ -22,7 +22,7 @@ public class BookRedisController {
     }
 
     @GetMapping("/fetch/{id}")
-    public Object getBook (@PathVariable  Long  id) {
+    public Book getBook (@PathVariable  Long  id) {
       return  bookRedisService.getBook(id) ;
     }
 
