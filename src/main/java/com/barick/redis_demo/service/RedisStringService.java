@@ -2,6 +2,7 @@ package com.barick.redis_demo.service;
 
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,11 @@ public class RedisStringService {
 
     private final RedisTemplate<String,String> redisTemplate ;
 
-    public RedisStringService(RedisTemplate<String, String> redisTemplate) {
+    private final StringRedisTemplate stringRedisTemplate ;
+
+    public RedisStringService(RedisTemplate<String, String> redisTemplate, StringRedisTemplate stringRedisTemplate) {
         this.redisTemplate = redisTemplate;
+        this.stringRedisTemplate = stringRedisTemplate;
     }
 
 
@@ -64,6 +68,12 @@ public class RedisStringService {
 
     public Long getexpiry(String key) {
         return redisTemplate.getExpire(key) ;
+    }
+
+    public String setwithstringredistemplate(String key , String value ){
+        stringRedisTemplate.opsForValue().set(key , value ) ;
+
+        return "key saved successfully with stringredistemplate" ;
     }
 }
 

@@ -1,32 +1,39 @@
-package com.barick.redis_demo.config;
+    package com.barick.redis_demo.config;
 
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+    import org.springframework.context.annotation.Bean;
+    import org.springframework.context.annotation.Configuration;
+    import org.springframework.data.redis.connection.RedisConnectionFactory;
+    import org.springframework.data.redis.core.RedisTemplate;
+    import org.springframework.data.redis.serializer.GenericJacksonJsonRedisSerializer;
+    import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+    import org.springframework.data.redis.serializer.RedisSerializer;
+    import org.springframework.data.redis.serializer.StringRedisSerializer;
+    import tools.jackson.databind.ObjectMapper;
 
-@Configuration
-public class RedisConfig {
+    @Configuration
+    public class RedisConfig {
 
-    @Bean
-    public RedisTemplate<String , String> redisTemplate (RedisConnectionFactory connectionFactory) {
+        @Bean
+        public RedisTemplate<String , Object> redisTemplate (RedisConnectionFactory connectionFactory) {
 
-            RedisTemplate<String , String > template = new RedisTemplate<>() ;
+                ObjectMapper objectMapper = new ObjectMapper() ;
+                RedisTemplate<String , Object > template = new RedisTemplate<>() ;
 
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer() ;
+            StringRedisSerializer stringRedisSerializer = new StringRedisSerializer() ;
+
+            GenericJacksonJsonRedisSerializer genericJacksonJsonRedisSerializer = new GenericJacksonJsonRedisSerializer(objectMapper) ;
 
             template.setConnectionFactory(connectionFactory) ;
 
-            template.setKeySerializer(stringRedisSerializer);
-            template.setValueSerializer(stringRedisSerializer);
+                template.setKeySerializer(stringRedisSerializer);
+                template.setValueSerializer(genericJacksonJsonRedisSerializer);
 
-            template.afterPropertiesSet();
+                template.afterPropertiesSet();
 
-            return template ;
+                return template ;
 
+
+        }
 
     }
-
-}

@@ -51,6 +51,13 @@ public class RedisStringController {
 
     }
 
+    @PostMapping("/setwithstringredis")
+    public String setwithstringredis( @RequestParam String key , @RequestParam String value ){
+
+        return redisStringService.setwithstringredistemplate(key ,value);
+
+    }
+
 
 //    @GetMapping("/get")
 //    public String get(@RequestParam String key){
