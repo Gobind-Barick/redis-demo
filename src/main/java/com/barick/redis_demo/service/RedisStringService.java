@@ -2,8 +2,10 @@ package com.barick.redis_demo.service;
 
 
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,6 +29,12 @@ public class RedisStringService {
 
         redisTemplate.opsForValue().multiSet(msetmap);
     }
+
+    public void setwithexpiry(String key , String value  , Long duration ){
+
+        redisTemplate.opsForValue().set(key , value , Duration.ofSeconds(duration));
+    }
+
 
     public String get(String key){
 
@@ -54,7 +62,8 @@ public class RedisStringService {
     }
 
 
-
-
+    public Long getexpiry(String key) {
+        return redisTemplate.getExpire(key) ;
+    }
 }
 

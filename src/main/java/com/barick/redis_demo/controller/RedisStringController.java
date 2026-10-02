@@ -1,6 +1,7 @@
 package com.barick.redis_demo.controller;
 
 import com.barick.redis_demo.service.RedisStringService;
+import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -34,6 +35,20 @@ public class RedisStringController {
 
         redisStringService.mset(map);
         return "Key Saved Successfully" ;
+    }
+
+    @PostMapping("/setwithexpiry")
+    public String set(@RequestParam String key  ,@RequestParam String value , @RequestParam Long time ){
+
+        redisStringService.setwithexpiry(key , value , time);
+        return "Key Saved Successfully with expiration" ;
+    }
+
+    @GetMapping("/getexpiry/{key}")
+    public Long getexpiry(@PathVariable String key ){
+
+        return redisStringService.getexpiry(key);
+
     }
 
 
