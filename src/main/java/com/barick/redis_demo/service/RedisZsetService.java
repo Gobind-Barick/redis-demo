@@ -21,4 +21,10 @@ public class RedisZsetService {
 
 
     }
+
+
+    public Double  getScore (String key , String member ) {
+
+        return stringRedisTemplate.opsForZSet().score(key , member) ;
+    }
 }
