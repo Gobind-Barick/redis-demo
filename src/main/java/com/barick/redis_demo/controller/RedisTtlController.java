@@ -25,4 +25,18 @@ public class RedisTtlController {
 
         return redisTtlService.getttl(key) ;
     }
+
+
+
+    @PostMapping("/generate-otp")
+    public String generateOtp(@RequestParam String userId){
+
+        return redisTtlService.generateotp(userId);
+    }
+
+    @PostMapping("verify-otp")
+    public Boolean verifyOtp(@RequestParam String userId ,  @RequestParam String otp){
+
+        return redisTtlService.verifyotp(userId, otp ) ;
+    }
 }
